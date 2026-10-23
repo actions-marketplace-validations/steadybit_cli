@@ -1,5 +1,22 @@
 # Changelog
 
+## v6.4.0
+
+- `experiment run --run-again` starts another run of an experiment that is already
+  running; without it, the run in progress is followed, as before. Each run it starts
+  sends its own `Idempotency-Key`, kept across the retries of that run, so a retried
+  request never starts yet another one. Needs a platform that knows `allowRunningAgain`.
+- `schedule create` and `schedule update` take `--run-again` and `--no-run-again`, so a
+  schedule runs even when its experiment is still running, and `schedule list` shows it.
+
+## v6.3.0
+
+- `user list` lists the users of the tenant, with their role, teams, what manages them
+  (SCIM, an LDAP sync, or Steadybit) and their last login; `--query` narrows it down.
+  `user delete` removes a user from the tenant. Both need an admin access token, and
+  the platform refuses to remove users that SCIM or an LDAP sync manages.
+- The README's installation is split by operating system and lists the Windows archives.
+
 ## v6.2.4
 
 - Built with Go 1.27.3, which fixes CVE-2026-111943 in the Go standard library.

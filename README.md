@@ -272,14 +272,16 @@ steadybit team environment add -k ADM --environment Global
 ```bash
 steadybit access-token create --name ci --type TEAM --team ADM --expires-at 2026-12-31
 steadybit user invite --email jane@example.com --team ADM
+steadybit user list --query jane
+steadybit user delete --username <username>
 steadybit killswitch status
 steadybit audit-log --from 2026-09-01 -t json
 steadybit license show
 steadybit report experiments-executed --group-by STATE --rollup MONTHLY
 ```
 
-Commands that cannot be undone, such as `killswitch activate`, `access-token delete` or
-`team member set`, ask for confirmation on a terminal; `--yes` skips the question.
+Commands that cannot be undone, such as `killswitch activate`, `access-token delete`,
+`user delete` or `team member set`, ask for confirmation on a terminal; `--yes` skips the question.
 
 ### Targets and actions
 
@@ -359,6 +361,7 @@ canceled or errored it before it ran. A few options make it fit pipelines:
 | `--expect-reason "…"`         | Also requires the run's reason to be exactly this                         |
 | `--expectation-retries 2`     | Runs the experiment again when a run did not end as expected              |
 | `--busy-retries 3`            | Waits and tries again while another experiment runs, instead of failing   |
+| `--run-again`                 | Starts another run when the experiment is already running                 |
 | `--external-id shop-latency`  | Runs the experiment with this external id, instead of `-k`                |
 
 In GitHub Actions a summary of every run is added to the job summary.
